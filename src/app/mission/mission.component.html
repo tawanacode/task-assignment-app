@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>{{ mission.title}}</h1>
+
+  <ul>
+      <li>{{ mission.id }}</li>
+      <li>{{ mission.date }}</li>
+      <li>{{ mission.completed ? 'completed' : 'incompleted'}}</li>
+  </ul>
+  
+  <form [formGroup]="selectScoutForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="scout">Assign Scout</label>
+      <select class="form-control" (change)="changeScout($event)" formControlName="scoutName">
+        <option value="" selected>Assign Scout</option>
+        <option *ngFor="let scout of scouts.results" [ngValue]="scout.id">{{scout.name}}</option>
+      </select>
+    </div>
+  </form>
+</div>

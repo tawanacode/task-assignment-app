@@ -17,9 +17,9 @@
                 <td>{{ mission.title }} </td>
                 <td>{{ mission.complete }}</td>
                 <td class="text-right">
-                    <button type="button" class="btn btn-dark btn-sm">
-            Edit / View
-          </button>
+                    <a routerLink="/mission/{{mission.id}}" role="button" class="btn btn-dark btn-sm">
+                        Edit / View
+                    </a>
                 </td>
             </tr>
         </tbody>

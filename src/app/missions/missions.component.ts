@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Mission } from '../mission';
 import { DataService } from '../data.service';
 
 @Component({
@@ -6,17 +8,21 @@ import { DataService } from '../data.service';
   templateUrl: './missions.component.html',
   styleUrls: ['./missions.component.scss']
 })
+
 export class MissionsComponent implements OnInit {
 
   missionsTitle: string = 'Missions';
-  missions: Object;
+  missions: Mission[];
 
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getMissions().subscribe(data =>
-      this.missions = data
-      //console.log(data)
-    )
+    this.getMissions();
   }
+
+  getMissions(){
+    this.data.getMissions().subscribe(data =>
+    this.missions = data
+    //console.log(data)
+  )}
 }
