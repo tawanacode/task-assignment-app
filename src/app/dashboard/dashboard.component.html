@@ -1,0 +1,14 @@
+<h1>Scouts Missions</h1>
+
+<ul *ngIf="scouts">
+  <li *ngFor="let scout of scouts.results">
+    {{ scout.id }} {{ scout.name }}
+  </li>
+</ul>
+
+
+<ul *ngIf="missions">
+    <li *ngFor="let mission of missions.results">
+      {{ mission.id }} {{ mission.title }}
+    </li>
+  </ul>
