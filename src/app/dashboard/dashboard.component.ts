@@ -8,6 +8,11 @@ import { DataService } from '../data.service';
 })
 export class DashboardComponent implements OnInit {
 
+  dashboardTitle: string = 'Dashboard';
+
+  missionsStatsTitle: string = 'Missions Stats';
+  scoutsStatsTitle: string = 'Scouts Stats';
+
   scouts: Object;
   missions: Object;
 

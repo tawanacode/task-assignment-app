@@ -1,0 +1,27 @@
+<div class="container">
+    <h1>{{ missionsTitle }}</h1>
+    <table class="table table-striped mt-5" *ngIf="missions">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Date</th>
+                <th scope="col">Title</th>
+                <th scope="col">Completed</th>
+                <th scope="col" class="text-right">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let mission of missions.results">
+                <th scope="row">{{ mission.id }}</th>
+                <td>{{ mission.date }}</td>
+                <td>{{ mission.title }} </td>
+                <td>{{ mission.complete }}</td>
+                <td class="text-right">
+                    <button type="button" class="btn btn-dark btn-sm">
+            Edit / View
+          </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>{{ scoutsTitle }}</h1>
+
+    <ul *ngIf="scouts" class="mt-5">
+        <li *ngFor="let scout of scouts.results">
+            <h2>
+                {{ scout.name }}
+            </h2>
+            <p>
+                <span>ID:</span> {{ scout.id }}<br>
+                <span>Email:</span> {{ scout.email }}</p>
+        </li>
+    </ul>
+</div>

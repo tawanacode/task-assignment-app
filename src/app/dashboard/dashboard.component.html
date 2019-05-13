@@ -1,14 +1,30 @@
-<h1>Scouts Missions</h1>
-
-<ul *ngIf="scouts">
-  <li *ngFor="let scout of scouts.results">
-    {{ scout.id }} {{ scout.name }}
-  </li>
-</ul>
-
-
-<ul *ngIf="missions">
-    <li *ngFor="let mission of missions.results">
-      {{ mission.id }} {{ mission.title }}
-    </li>
-  </ul>
+<div class="container">
+    <h1>{{ dashboardTitle }}</h1>
+    <div class="row mt-5">
+        <div class="col-sm-6" *ngIf="missions">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        {{ missionsStatsTitle }}
+                    </h2>
+                    <p class="card-text">
+                        Total {{ missions.count }}
+                    </p>
+                    <a routerLink="/missions" class="btn btn-primary">view missions</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6" *ngIf="scouts">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        {{ scoutsStatsTitle }}
+                    </h2>
+                    <p class="card-text">
+                        Total {{ scouts.count }}
+                    </p>
+                    <a routerLink="/scouts" class="btn btn-primary">view scouts</a>
+                </div>
+            </div>
+        </div>
+    </div>

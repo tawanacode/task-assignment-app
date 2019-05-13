@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 
 const api_key = {
   headers: new HttpHeaders()
@@ -10,16 +10,18 @@ const api_key = {
   providedIn: 'root'
 })
 export class DataService {
+  private scoutsUrl = 'https://sherlock.aerobotics.io/developers/clients/?format=json';
+  private missionsUrl = 'https://sherlock.aerobotics.io/developers/scoutmissions/?format=json';
 
   constructor(private http: HttpClient) { }
   
   getScouts(){
     return this.http
-    .get('https://sherlock.aerobotics.io/developers/clients/?format=json', api_key);
+    .get(this.scoutsUrl, api_key);
   }
   
   getMissions(){
     return this.http
-    .get('https://sherlock.aerobotics.io/developers/scoutmissions/?format=json', api_key);
+    .get(this.missionsUrl, api_key);
   }
 }
