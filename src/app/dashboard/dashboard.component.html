@@ -14,17 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6" *ngIf="scouts">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">
-                        {{ scoutsStatsTitle }}
-                    </h2>
-                    <p class="card-text">
-                        Total {{ scouts.count }}
-                    </p>
-                    <a routerLink="/scouts" class="btn btn-primary">view scouts</a>
-                </div>
-            </div>
-        </div>
     </div>
+</div>
+
+<app-scouts></app-scouts>

@@ -1,27 +1,32 @@
 <div class="container">
     <h1>{{ missionsTitle }}</h1>
-    <table class="table table-striped mt-5" *ngIf="missions">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Date</th>
-                <th scope="col">Title</th>
-                <th scope="col">Completed</th>
-                <th scope="col" class="text-right">&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let mission of missions.results">
-                <th scope="row">{{ mission.id }}</th>
-                <td>{{ mission.date }}</td>
-                <td>{{ mission.title }} </td>
-                <td>{{ mission.complete }}</td>
-                <td class="text-right">
-                    <a routerLink="/mission/{{mission.id}}" role="button" class="btn btn-dark btn-sm">
-                        Edit / View
+
+    <div class="table-responsive">
+        <table class="table table-striped mt-5" *ngIf="missions">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Date added</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Scout</th>
+                    <th scope="col">Completed</th>
+                    <th scope="col" class="text-right">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let mission of missions.results">
+                    <th scope="row">{{ mission.id }}</th>
+                    <td>{{ mission.date }}</td>
+                    <td>{{ mission.title }} </td>
+                    <td>{{ mission.title }} </td>
+                    <td>{{ mission.complete ? 'yes' : 'no' }}</td>
+                    <td class="text-right">
+                        <a routerLink="/mission/{{mission.id}}" role="button" class="btn btn-dark btn-sm">
+                        manage
                     </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -1,19 +1,22 @@
 <div class="container">
-  <h1>{{ mission.title}}</h1>
+    <h1>{{ mission?.title}}</h1>
 
-  <ul>
-      <li>{{ mission.id }}</li>
-      <li>{{ mission.date }}</li>
-      <li>{{ mission.completed ? 'completed' : 'incompleted'}}</li>
-  </ul>
-  
-  <form [formGroup]="selectScoutForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="scout">Assign Scout</label>
-      <select class="form-control" (change)="changeScout($event)" formControlName="scoutName">
-        <option value="" selected>Assign Scout</option>
-        <option *ngFor="let scout of scouts.results" [ngValue]="scout.id">{{scout.name}}</option>
-      </select>
-    </div>
-  </form>
+    <ul>
+        <li>ID: {{ mission?.id }}</li>
+        <li>Date Created: {{ mission?.date }}</li>
+        <li>Mission Status: {{ mission?.completed ? 'completed' : 'incompleted'}}</li>
+        <li>Scout: {{ scout.name ? scout.name: 'unassigned' }}</li>
+    </ul>
+
+    <form #selectScoutForm="ngForm" (ngSubmit)="save()">
+        <div class="form-group">
+            <label class="sr-only" for="scout">Assign Scout</label>
+            <select class="form-control" (change)="changeScout($event)" [(ngModel)]="scoutNames" name="scout">
+                <option value="" selected>Assign Scout</option>
+                <option *ngFor="let scout of scouts?.results" [value]="scout.name">{{scout?.name}}</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary" (click)="save()">save</button>
+    </form>
 </div>

@@ -18,14 +18,14 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
   
-  getScouts(){
+  getScouts(): Observable<Scout[]>{
     return this.http.get<Scout[]>(this.scoutsUrl, api_key)
       .pipe(
         catchError(this.handleError<Scout[]>('getScouts', []))
       );
   }
   
-  getMissions(){
+  getMissions(): Observable<Mission[]>{
     return this.http.get<Mission[]>(this.missionsUrl, api_key)
       .pipe(
         catchError(this.handleError<Mission[]>('getMissions', []))

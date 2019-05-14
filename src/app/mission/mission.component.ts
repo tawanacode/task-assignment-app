@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { Mission } from '../mission';
 import { Scout } from '../scout';
 import { DataService } from '../data.service';
+import { AssignedDataService } from '../assigned-data.service';
 
 @Component({
   selector: 'app-mission',
@@ -16,16 +17,20 @@ import { DataService } from '../data.service';
 export class MissionComponent implements OnInit {
 
   @Input() mission: Mission;
+  @Input() scout: Scout;
+  
   scouts: Scout[];
   selectScoutForm: FormGroup;
   submitted = false;
   success = false;
-
+  selectedScout: string = '';
+  selectedScoutID = 0;
 
   constructor(
     private route: ActivatedRoute,
     private data: DataService,
     private location: Location,
+    private assignedData: AssignedDataService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -36,9 +41,7 @@ export class MissionComponent implements OnInit {
       scoutName: ['']
     });
 
-    this.data.getScouts().subscribe(data =>
-      this.scouts = data
-    )
+    this.data.getScouts().subscribe(data => this.scouts = data)
   }
 
   getMission(): void {
@@ -48,10 +51,20 @@ export class MissionComponent implements OnInit {
   }
 
   changeScout(e) {
-    console.log(e.target.value)
-    this.scoutName.setValue(e.target.value, {
+    this.scoutName.setValue(e.target.selectedOptions[0].text, {
       onlySelf: true
     })
+    this.selectedScout = e.target.selectedOptions[0].text;
+    this.scouts['results'].filter(e => {
+      if(e.name === this.selectedScout) this.selectedScoutID = e.id});
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+ save(): void {  
+    this.assignedData.add(this.mission, this.selectedScoutID).subscribe(() => this.goBack());
   }
 
   get scoutName() {
