@@ -26,9 +26,17 @@ export class DashboardComponent implements OnInit {
       this.scouts = data
     )
 
-    this.data.getMissions().subscribe(data =>
-      this.missions = data
+    this.data.getMissions().subscribe(data => {
+      this.missions = data['results']
+      //console.log()
+      this.populateAssign(data['results']);
+    }
     )
+    
+  }
+
+  populateAssign(data):void {
+    data.forEach((e, i) => this.data.addAssignDB(i, 0, e.id))
   }
 
 }

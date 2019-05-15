@@ -66,6 +66,11 @@ export class DataService {
       return of(this.ASSIGN.find(data => data.scout_id === id));
     }
 
+    addAssignDB(id:number, scout_id: number, mission_id: number){
+      const data = new Assign(id, scout_id, mission_id);
+      return (of(this.ASSIGN.push(data)), console.log(data));
+    }
+
     addAssign(scout_id: number, mission_id: number){
       const id = this.ASSIGN.length;
       const data = new Assign(id, scout_id, mission_id);
