@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { AssignedDataService } from '../assigned-data.service';
 
 @Component({
   selector: 'app-scouts',
@@ -13,13 +12,11 @@ export class ScoutsComponent implements OnInit {
   scouts: Object;
   scoutMissions: any[];
   constructor(
-    private data: DataService,
-    private assignedData: AssignedDataService) { }
+    private data: DataService) { }
 
   ngOnInit() {
     this.data.getScouts().subscribe(data => {
-      this.assignedData.scoutMissions = data['results'].map(e => e = { ...e, missions: []});
-      this.scouts = data }
+      this.scouts = data}
     )
   }
 }

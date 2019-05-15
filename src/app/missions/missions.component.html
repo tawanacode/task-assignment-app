@@ -18,7 +18,9 @@
                     <th scope="row">{{ mission.id }}</th>
                     <td>{{ mission.date }}</td>
                     <td>{{ mission.title }} </td>
-                    <td>{{ mission.title }} </td>
+                    <td *ngFor="let scout of scoutData">
+                        {{ scout.missions.length > 0 ? scout.name : 'unassigned' }}
+                    </td>
                     <td>{{ mission.complete ? 'yes' : 'no' }}</td>
                     <td class="text-right">
                         <a routerLink="/mission/{{mission.id}}" role="button" class="btn btn-dark btn-sm">

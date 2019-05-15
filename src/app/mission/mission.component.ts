@@ -1,12 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { Mission } from '../mission';
 import { Scout } from '../scout';
+import { Assign } from '../assign';
 import { DataService } from '../data.service';
-import { AssignedDataService } from '../assigned-data.service';
 
 @Component({
   selector: 'app-mission',
@@ -16,32 +15,22 @@ import { AssignedDataService } from '../assigned-data.service';
 
 export class MissionComponent implements OnInit {
 
-  @Input() mission: Mission;
-  @Input() scout: Scout;
-  
-  scouts: Scout[];
-  selectScoutForm: FormGroup;
+  mission: Mission;
+  @Input() scout: Scout = new Scout(0, 'none', 'info@test.com', 1);
+  scouts: Scout[] = [];
+  scout_id: number;
   submitted = false;
-  success = false;
-  selectedScout: string = '';
-  selectedScoutID = 0;
+  selectedScout:string;
 
   constructor(
     private route: ActivatedRoute,
     private data: DataService,
-    private location: Location,
-    private assignedData: AssignedDataService,
-    private formBuilder: FormBuilder
+    private location: Location
   ) { }
 
   ngOnInit(): void {
     this.getMission();
-
-    this.selectScoutForm = this.formBuilder.group({
-      scoutName: ['']
-    });
-
-    this.data.getScouts().subscribe(data => this.scouts = data)
+    this.data.getScouts().subscribe(data => this.scouts = data);
   }
 
   getMission(): void {
@@ -50,24 +39,18 @@ export class MissionComponent implements OnInit {
       .subscribe(data => this.mission = data);
   }
 
-  changeScout(e) {
-    this.scoutName.setValue(e.target.selectedOptions[0].text, {
-      onlySelf: true
-    })
-    this.selectedScout = e.target.selectedOptions[0].text;
-    this.scouts['results'].filter(e => {
-      if(e.name === this.selectedScout) this.selectedScoutID = e.id});
+  onSelect(e):void{
+    this.scout_id = +e.target.selectedOptions[0].title;
+    this.data.getAssign(this.scout_id).subscribe(data => console.log(data));
   }
 
   goBack(): void {
     this.location.back();
   }
 
- save(): void {  
-    this.assignedData.add(this.mission, this.selectedScoutID).subscribe(() => this.goBack());
+ save() {
+  this.data.addAssign(this.scout_id, this.mission.id);
+  //.subscribe(data => this.assign = data);
+     return this.submitted;
   }
-
-  get scoutName() {
-    return this.selectScoutForm.get('scoutName');
-    }
 }
