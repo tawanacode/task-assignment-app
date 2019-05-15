@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>{{ mission?.title}}</h1>
+    <h1>Mission: {{ mission?.title}}</h1>
     {{ assign | json}}<br> {{ scout | json}}
     <ul>
         <li>ID: {{ mission?.id }}</li>
@@ -11,7 +11,6 @@
     <div class="form-group">
         <label class="sr-only" for="select">Assign Scout</label>
         <select class="form-control" [(ngModel)]="scout.name" name="select" (change)="onSelect($event)">
-                <option [ngValue]="" selected>Assign Scout</option>
                 <option *ngFor="let scout of scouts?.results" [ngValue]="scout.name" title="{{scout.id}}">{{scout?.name}}</option>
             </select>
     </div>

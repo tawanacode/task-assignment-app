@@ -28,23 +28,26 @@ export class MissionsComponent implements OnInit {
   }
 
   getMissions():void {
-    let scout = this.scout;
+    //let scout = this.scout;
     this.data.getMissions().subscribe(data =>{
       this.missions = data['results'];
-    });
-    this.missions.map(e => {
-      this.getMissId(e.id)
-      this.getScout(this.scoutId);
-      console.log(e)
-       return {...e, scout};
-    });
-    this.data.getAssignDB().subscribe(data => {
-      this.assignAll = data;
-    });
-  }
+    //.map(e => {
+    //     console.log(e)
+    //   this.getMissId(e.id);
+    //   this.data.getScout(this.scoutId).subscribe(data =>{
+    //     this.scout = data;});
+    //    return {...e, scout};
+    // });
+    // console.log(this.missions);
+    // this.data.getAssignDB().subscribe(data => {
+    //   this.assignAll = data;
+    // });
+  })
+}
 
   getMissId(id):void{
     this.data.getAssignByMission(id).subscribe(e => {
+      console.log(e)
       this.scoutId = e.scout_id;
     });
   }
@@ -52,6 +55,6 @@ export class MissionsComponent implements OnInit {
      //if(!id) return;
      this.data.getScout(id).subscribe(data =>{
      this.scout = data;
-     console.log(this.scout)}
+     console.log('this is scout',this.scout)}
    )}
 }

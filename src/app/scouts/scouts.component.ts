@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Mission } from '../mission';
+import { Scout } from '../scout';
+import { Assign } from '../assign';
 import { DataService } from '../data.service';
 
 @Component({
@@ -9,8 +13,8 @@ import { DataService } from '../data.service';
 export class ScoutsComponent implements OnInit {
 
   scoutsTitle: string = 'Scouts';
-  scouts: Object;
-  scoutMissions: any[];
+  scouts: Scout[];
+  missions: Mission[];
   constructor(
     private data: DataService) { }
 

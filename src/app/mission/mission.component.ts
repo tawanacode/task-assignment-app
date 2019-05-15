@@ -15,10 +15,11 @@ import { DataService } from '../data.service';
 
 export class MissionComponent implements OnInit {
   assign: Assign;
+  assignAll: Assign[];
   mission: Mission;
-  scout: Scout = new Scout(0, 'none', 'none@test.com', 0);
+  scout: Scout;
   scouts: Scout[] = [];
-  scout_id: number;
+  scout_id: number = 6253;
   submitted = false;
   selectedScout: string = 'none';
 
@@ -31,6 +32,9 @@ export class MissionComponent implements OnInit {
   ngOnInit(): void {
     this.data.getScouts().subscribe(data => this.scouts = data);
     this.getMission();
+    this.data.getAssignDB().subscribe(data => {
+      this.assignAll = data;
+    });
     }
 
   getMission(): void {
@@ -38,8 +42,8 @@ export class MissionComponent implements OnInit {
     this.data.getMission(id).subscribe(data => this.mission = data);
     this.data.getAssignByMission(id).subscribe(data => {
       this.assign = data;
-      this.scout_id = data.scout_id || 0;
-    });
+      this.scout_id = data.scout_id;
+   });
     this.data.getScout(this.scout_id).subscribe(data => this.scout = data);
   }
 
@@ -48,7 +52,7 @@ export class MissionComponent implements OnInit {
     this.scout_id = +e.target.selectedOptions[0].title;
     console.log('scout is', this.scout_id)
     this.data.getScout(this.scout_id).subscribe(data => this.scout = data);
-  }
+   }
 
   save() {  
     this.data.updateAssignDB(this.scout_id, this.mission.id).subscribe();
