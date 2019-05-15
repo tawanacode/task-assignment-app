@@ -1,20 +1,20 @@
 <div class="container">
     <h1>{{ mission?.title}}</h1>
+    {{ assign | json}}<br> {{ scout | json}}
     <ul>
         <li>ID: {{ mission?.id }}</li>
         <li>Date Created: {{ mission?.date }}</li>
         <li>Mission Status: {{ mission?.completed ? 'completed' : 'incompleted'}}</li>
-        <li>Scout: {{ scout?.name }}</li>
+        <li>Scout: {{ scout?.name ? scout?.name : selectedScout }}</li>
     </ul>
 
-        <div class="form-group">
-            <label class="sr-only" for="select">Assign Scout</label>
-            <select class="form-control" [(ngModel)]="scout.name" name="select"(change)="onSelect($event)">
+    <div class="form-group">
+        <label class="sr-only" for="select">Assign Scout</label>
+        <select class="form-control" [(ngModel)]="scout.name" name="select" (change)="onSelect($event)">
                 <option [ngValue]="" selected>Assign Scout</option>
                 <option *ngFor="let scout of scouts?.results" [ngValue]="scout.name" title="{{scout.id}}">{{scout?.name}}</option>
             </select>
-        </div>
+    </div>
 
-        <button class="btn btn-primary" (click)="goBack()">back</button>
-        <button class="btn btn-primary" (click)="save()">save</button>
+    <button class="btn btn-primary" (click)="save()">save</button>
 </div>

@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 
 import { Mission } from '../mission';
 import { Scout } from '../scout';
+import { Assign } from '../assign';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
 
   scouts: Scout[];
   missions: Mission[];
+  assignAll: Assign[];
 
   constructor(private data: DataService) { }
 
@@ -25,18 +27,12 @@ export class DashboardComponent implements OnInit {
     this.data.getScouts().subscribe(data =>
       this.scouts = data
     )
+    this.data.getAssignDB().subscribe(data => this.assignAll = data);
 
     this.data.getMissions().subscribe(data => {
       this.missions = data['results']
       //console.log()
-      this.populateAssign(data['results']);
-    }
-    )
-    
+      this.missions.forEach((e, i) => this.data.addAssignDB(i, 0, e.id))
+    })
   }
-
-  populateAssign(data):void {
-    data.forEach((e, i) => this.data.addAssignDB(i, 0, e.id))
-  }
-
 }

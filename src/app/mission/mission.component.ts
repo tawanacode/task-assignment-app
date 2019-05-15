@@ -14,13 +14,13 @@ import { DataService } from '../data.service';
 })
 
 export class MissionComponent implements OnInit {
-
+  assign: Assign;
   mission: Mission;
-  @Input() scout: Scout = new Scout(0, 'none', 'info@test.com', 1);
+  scout: Scout = new Scout(0, 'none', 'none@test.com', 0);
   scouts: Scout[] = [];
   scout_id: number;
   submitted = false;
-  selectedScout:string;
+  selectedScout: string = 'none';
 
   constructor(
     private route: ActivatedRoute,
@@ -29,28 +29,31 @@ export class MissionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getMission();
     this.data.getScouts().subscribe(data => this.scouts = data);
-  }
+    this.getMission();
+    }
 
   getMission(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.data.getMission(id)
-      .subscribe(data => this.mission = data);
+    this.data.getMission(id).subscribe(data => this.mission = data);
+    this.data.getAssignByMission(id).subscribe(data => {
+      this.assign = data;
+      this.scout_id = data.scout_id || 0;
+    });
+    this.data.getScout(this.scout_id).subscribe(data => this.scout = data);
   }
 
-  onSelect(e):void{
+  onSelect(e): void {
+    e.preventDefault;
     this.scout_id = +e.target.selectedOptions[0].title;
-    this.data.getAssign(this.scout_id).subscribe(data => console.log(data));
+    console.log('scout is', this.scout_id)
+    this.data.getScout(this.scout_id).subscribe(data => this.scout = data);
   }
 
-  goBack(): void {
+  save() {  
+    this.data.updateAssignDB(this.scout_id, this.mission.id).subscribe();
     this.location.back();
-  }
-
- save() {
-  this.data.addAssign(this.scout_id, this.mission.id);
-  //.subscribe(data => this.assign = data);
-     return this.submitted;
+    //.subscribe(data => this.assign = data);
+    return this.submitted;
   }
 }

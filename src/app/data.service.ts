@@ -16,19 +16,8 @@ const api_key = {
 export class DataService {
   private scoutsUrl = 'https://sherlock.aerobotics.io/developers/clients/';
   private missionsUrl = 'https://sherlock.aerobotics.io/developers/scoutmissions/';
-  private assignUrl = 'api/assign'; 
 
-  ASSIGN: Assign[] = [
-    {
-    id: 0,
-    scout_id: 6253,
-    mission_id: 1376},
-    {
-    id: 1,
-    scout_id: 6253,
-    mission_id: 1375
-    }
-  ];
+  AssignDB: Assign[] = [];
 
   constructor(private http: HttpClient) { }
   
@@ -47,9 +36,9 @@ export class DataService {
   }
 
     getScout(id: number): Observable<Scout> {
-      const url = `${this.missionsUrl}${id}/`;
+      const url = `${this.scoutsUrl}${id}/`;
       return this.http.get<Scout>(url, api_key).pipe(
-        tap(_ => console.log(`fetched hero id=${id}`)),
+        tap(_ => console.log(`fetched scout id=${id}`)),
         catchError(this.handleError<Scout>(`getScout id=${id}`))
       );
     }
@@ -57,25 +46,31 @@ export class DataService {
     getMission(id: number): Observable<Mission> {
       const url = `${this.missionsUrl}${id}/`;
       return this.http.get<Mission>(url, api_key).pipe(
-        tap(_ => console.log(`fetched hero id=${id}`)),
+        tap(_ => console.log(`fetched mission id=${id}`)),
         catchError(this.handleError<Mission>(`getMission id=${id}`))
       );
     }
 
-    getAssign(id: number): Observable<Assign> {
-      return of(this.ASSIGN.find(data => data.scout_id === id));
+    getAssignByScout(id: number): Observable<Assign> {
+      return of(this.AssignDB.find(data => data.scout_id === id));
+    }
+
+    getAssignByMission(id: number): Observable<Assign> {
+      return of(this.AssignDB.find(data => data.mission_id === id));
     }
 
     addAssignDB(id:number, scout_id: number, mission_id: number){
       const data = new Assign(id, scout_id, mission_id);
-      return (of(this.ASSIGN.push(data)), console.log(data));
+      return (of(this.AssignDB.push(data)));
     }
 
-    addAssign(scout_id: number, mission_id: number){
-      const id = this.ASSIGN.length;
-      const data = new Assign(id, scout_id, mission_id);
+    getAssignDB(){
+      return (of(this.AssignDB));
+    }
 
-      return of(this.ASSIGN.find(e => e.mission_id === mission_id) ? this.ASSIGN.filter(e => {if(e.mission_id === mission_id) {e.scout_id = scout_id}}) : this.ASSIGN.push(data));
+    updateAssignDB(scout_id: number, mission_id: number){
+      return of(this.AssignDB.filter(e => {
+        if(e.mission_id === mission_id) e.scout_id = scout_id}));
     }
 
     /**

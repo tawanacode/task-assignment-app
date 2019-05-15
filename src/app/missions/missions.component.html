@@ -1,6 +1,5 @@
 <div class="container">
     <h1>{{ missionsTitle }}</h1>
-
     <div class="table-responsive">
         <table class="table table-striped mt-5" *ngIf="missions">
             <thead>
@@ -14,12 +13,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let mission of missions.results">
+                <tr *ngFor="let mission of missions; let i = index">
                     <th scope="row">{{ mission.id }}</th>
                     <td>{{ mission.date }}</td>
                     <td>{{ mission.title }} </td>
-                    <td *ngFor="let scout of scoutData">
-                        {{ scout.missions.length > 0 ? scout.name : 'unassigned' }}
+                    <td *ngIf="scout">
+                        {{ mission | json}}
                     </td>
                     <td>{{ mission.complete ? 'yes' : 'no' }}</td>
                     <td class="text-right">
