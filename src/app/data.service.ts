@@ -55,11 +55,11 @@ export class DataService {
       return of(this.assignDB.find(data => data.scout_id === id));
     }
 
-    getAssignByMission(id: number, name:string= '') {
-      return of(this.assignDB.find(data => data.mission_id === id));
-      
-      // const clientId: number = this.assignDB.find(data => data.mission_id === id);
-      // return of(this.getScout(clientId).subscribe(data => name = data.name));
+    getAssignByMission(id: number): Observable<Scout> {
+      const clientId = this.assignDB.find(data => data.mission_id === id).scout_id;
+      console.log(clientId);
+      if(!clientId) return;
+      return this.getScout(clientId);
     }
 
     addAssignDB(id:number, scout_id: number, mission_id: number){

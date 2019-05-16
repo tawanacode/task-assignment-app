@@ -18,8 +18,8 @@ export class MissionComponent implements OnInit {
   assignAll: Assign[];
   mission: Mission;
   scouts: Scout[] = [];
-  scout_id: number = 6253;
-  scout: Scout = new Scout(0, 'none', 'user@test.com', 0);
+  scout_id: number = 0;
+  scout: Scout = new Scout(this.scout_id, '-', 'info@scout.co.za', 0);
   submitted = false;
   selectedScout: string = 'none';
 
@@ -32,29 +32,30 @@ export class MissionComponent implements OnInit {
   ngOnInit(): void {
     this.data.getScouts().subscribe(data => this.scouts = data);
     this.getMission();
-    this.data.getAssignDB().subscribe(data => {
-      this.assignAll = data;
-    });
     }
 
   getMission(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.data.getMission(id).subscribe(data => this.mission = data);
-    this.data.getAssignByMission(id).subscribe(data => {
-      this.assign = data;
-      this.scout_id = data.scout_id;
-      if(data.scout_id) this.getScout(data.scout_id);
-   });
+    this.data.getMission(id).subscribe(data => {
+      this.mission = data;
+    });
+    this.data.getAssignDB().subscribe(data => {
+      data.filter(e => e.mission_id === id).map(e => this.assign = e);
+    });
+    this.getScoutName(id, this.assign.scout_id)
   }
 
-  getScout(id): void {
-   this.data.getScout(id).subscribe(data => {this.scout = data});
+  getScoutName(missionId:number, scoutId:number):void{
+    if(scoutId) this.data.getAssignByMission(missionId).subscribe(data => {
+      this.scout = data;
+      console.log(this.scout.name);
+    });
   }
 
   onSelect(e): void {
     e.preventDefault;
     this.scout_id = +e.target.selectedOptions[0].title;
-    console.log('scout is', this.scout_id)
+    console.log('selected scout is', this.scout_id)
     this.data.getScout(this.scout_id).subscribe(data => this.scout = data);
    }
 
@@ -62,8 +63,8 @@ export class MissionComponent implements OnInit {
     this.location.back();
   }
   save():void {  
+    console.log(this.mission.id, this.scout_id)
     this.data.updateAssignDB(this.scout_id, this.mission.id).subscribe();
-    //.subscribe(data => this.assign = data);
     this.submitted;
   }
 }

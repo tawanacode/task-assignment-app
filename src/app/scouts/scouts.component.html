@@ -2,15 +2,15 @@
     <h2>{{ scoutsTitle }}</h2>
 
     <div class="row mt-3">
-        <div class="col-4" *ngFor="let scout of scouts.results">
+        <div class="col-4" *ngFor="let scout of scouts">
             <div class="card" >
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ scout.name }} <br>
                         <small>ID: <em>{{ scout.id }}</em></small>
                     </h5>
-                    <p><span *ngFor="let mission of scoutMissions">
-                            {{ missions | json}}
+                    <p><span *ngFor="let mission of scout.missions">
+                            {{ mission }}
                         </span></p>
                 </div>
             </div>

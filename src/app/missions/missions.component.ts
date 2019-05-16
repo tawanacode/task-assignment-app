@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Mission } from '../mission';
-import { Scout } from '../scout';
 import { Assign } from '../assign';
 import { DataService } from '../data.service';
 
@@ -16,43 +15,32 @@ export class MissionsComponent implements OnInit {
   missionsTitle: string = 'Missions';
   assignAll: Assign[];
   missions: Mission[];
-  scouts: Scout[];
-  scout: Scout = new Scout(0, 'none', 'user@test.com', 0);
-  scoutId: number;
-  scoutName: string;
 
   constructor(
     private data: DataService) { }
 
   ngOnInit() {
-    this.data.getScouts().subscribe(data => this.scouts = data);
     this.getMissions();
-    //this.getScout();
   }
 
   getMissions():void {
     this.data.getMissions().subscribe(data =>{
-     // this.missions = data['results'];
       if(this.data.assignDB.length === 0) this.populateAssignDB(data['results']);
-      this.missions = data['results'].map(e => {
-        this.getScout(e.id);
-        return  e = {...e, scout :  this.scout.name };
+      this.missions = data['results'].map((e:any, i:number) => {
+        const idx = this.data.assignDB[i].scout_id;
+        return this.addScoutName({...e, scout: '-' }, e.id, idx);
       });
-
-      console.log(this.missions);
     });
   }
 
-  getScout(id):void{
-    this.data.getAssignByMission(id).subscribe(e => this.scoutId = e.scout_id);
-    console.log('from get scout', this.scoutId)
-    if(this.scoutId) this.data.getScout(this.scoutId).subscribe(data => {
-      this.scout = data;
-    console.log('from namae', this.scout.name);
+  addScoutName(missionsObj:any, missionId:number, scoutId:number){
+    if(scoutId) this.data.getAssignByMission(missionId).subscribe(data => {
+      missionsObj.scout = data.name;
     });
+    return missionsObj;
   }
 
-   populateAssignDB(data):void {
-    data.map((e, i) => this.data.addAssignDB(i, 0, e.id));
+   populateAssignDB(data:any):void {
+    data.map((e:any, i:number) => this.data.addAssignDB(i, 0, e.id));
   }
 }

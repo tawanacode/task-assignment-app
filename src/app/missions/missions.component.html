@@ -4,9 +4,8 @@
         <table class="table table-striped -5" *ngIf="missions">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Date added</th>
-                    <th scope="col">Title</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Mission</th>
                     <th scope="col">Done</th>
                     <th scope="col">Scout</th>
                     <th scope="col" class="text-right">&nbsp;</th>
@@ -14,9 +13,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let mission of missions; let i = index">
-                    <th scope="row">{{ mission.id }}</th>
-                    <td>{{ mission.date }}</td>
-                    <td>{{ mission.title }} </td>
+                    
+                    <td scope="row">{{ mission.date }}</td>
+                    <td>{{ mission.title }}</td>
                     <td>{{ mission.complete ? 'yes' : 'no' }}</td>
                     <td>{{ mission.scout }}</td>
                     <td class="text-right">
