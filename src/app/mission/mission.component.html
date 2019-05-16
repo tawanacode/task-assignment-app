@@ -11,9 +11,11 @@
     <div class="form-group">
         <label class="sr-only" for="select">Assign Scout</label>
         <select class="form-control" [(ngModel)]="scout.name" name="select" (change)="onSelect($event)">
+            
                 <option *ngFor="let scout of scouts?.results" [ngValue]="scout.name" title="{{scout.id}}">{{scout?.name}}</option>
             </select>
     </div>
 
+    <button class="btn btn-primary" (click)="goBack()">back</button>
     <button class="btn btn-primary" (click)="save()">save</button>
 </div>

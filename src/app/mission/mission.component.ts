@@ -17,9 +17,9 @@ export class MissionComponent implements OnInit {
   assign: Assign;
   assignAll: Assign[];
   mission: Mission;
-  scout: Scout;
   scouts: Scout[] = [];
   scout_id: number = 6253;
+  scout: Scout = new Scout(0, 'none', 'user@test.com', 0);
   submitted = false;
   selectedScout: string = 'none';
 
@@ -43,8 +43,12 @@ export class MissionComponent implements OnInit {
     this.data.getAssignByMission(id).subscribe(data => {
       this.assign = data;
       this.scout_id = data.scout_id;
+      if(data.scout_id) this.getScout(data.scout_id);
    });
-    this.data.getScout(this.scout_id).subscribe(data => this.scout = data);
+  }
+
+  getScout(id): void {
+   this.data.getScout(id).subscribe(data => {this.scout = data});
   }
 
   onSelect(e): void {
@@ -54,10 +58,12 @@ export class MissionComponent implements OnInit {
     this.data.getScout(this.scout_id).subscribe(data => this.scout = data);
    }
 
-  save() {  
-    this.data.updateAssignDB(this.scout_id, this.mission.id).subscribe();
+  goBack():void{
     this.location.back();
+  }
+  save():void {  
+    this.data.updateAssignDB(this.scout_id, this.mission.id).subscribe();
     //.subscribe(data => this.assign = data);
-    return this.submitted;
+    this.submitted;
   }
 }

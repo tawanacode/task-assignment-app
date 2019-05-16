@@ -17,7 +17,7 @@ export class DataService {
   private scoutsUrl = 'https://sherlock.aerobotics.io/developers/clients/';
   private missionsUrl = 'https://sherlock.aerobotics.io/developers/scoutmissions/';
 
-  AssignDB: Assign[] = [];
+  assignDB: Assign[] = [];
 
   constructor(private http: HttpClient) { }
   
@@ -52,24 +52,27 @@ export class DataService {
     }
 
     getAssignByScout(id: number): Observable<Assign> {
-      return of(this.AssignDB.find(data => data.scout_id === id));
+      return of(this.assignDB.find(data => data.scout_id === id));
     }
 
-    getAssignByMission(id: number): Observable<Assign> {
-      return of(this.AssignDB.find(data => data.mission_id === id));
+    getAssignByMission(id: number, name:string= '') {
+      return of(this.assignDB.find(data => data.mission_id === id));
+      
+      // const clientId: number = this.assignDB.find(data => data.mission_id === id);
+      // return of(this.getScout(clientId).subscribe(data => name = data.name));
     }
 
     addAssignDB(id:number, scout_id: number, mission_id: number){
       const data = new Assign(id, scout_id, mission_id);
-      return (of(this.AssignDB.push(data)));
+      return (of(this.assignDB.push(data)));
     }
 
     getAssignDB(){
-      return (of(this.AssignDB));
+      return (of(this.assignDB));
     }
 
     updateAssignDB(scout_id: number, mission_id: number){
-      return of(this.AssignDB.filter(e => {
+      return of(this.assignDB.filter(e => {
         if(e.mission_id === mission_id) e.scout_id = scout_id}));
     }
 

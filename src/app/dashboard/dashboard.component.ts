@@ -28,16 +28,7 @@ export class DashboardComponent implements OnInit {
 
     this.data.getMissions().subscribe(data => {
       this.missions = data
-      //console.log()
-      this.populateAssign(data['results']);
-    }
-    )
+    })
     
   }
-
-  populateAssign(data):void {
-    //if(data) return;
-    data.map((e, i) => this.data.addAssignDB(i, 0, e.id))
-  }
-
 }

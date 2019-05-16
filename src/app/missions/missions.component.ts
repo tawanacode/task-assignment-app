@@ -16,45 +16,43 @@ export class MissionsComponent implements OnInit {
   missionsTitle: string = 'Missions';
   assignAll: Assign[];
   missions: Mission[];
-  scout: Scout;
-  scoutId;
+  scouts: Scout[];
+  scout: Scout = new Scout(0, 'none', 'user@test.com', 0);
+  scoutId: number;
+  scoutName: string;
 
   constructor(
     private data: DataService) { }
 
   ngOnInit() {
+    this.data.getScouts().subscribe(data => this.scouts = data);
     this.getMissions();
     //this.getScout();
   }
 
   getMissions():void {
-    //let scout = this.scout;
     this.data.getMissions().subscribe(data =>{
-      this.missions = data['results'];
-    //.map(e => {
-    //     console.log(e)
-    //   this.getMissId(e.id);
-    //   this.data.getScout(this.scoutId).subscribe(data =>{
-    //     this.scout = data;});
-    //    return {...e, scout};
-    // });
-    // console.log(this.missions);
-    // this.data.getAssignDB().subscribe(data => {
-    //   this.assignAll = data;
-    // });
-  })
-}
+     // this.missions = data['results'];
+      if(this.data.assignDB.length === 0) this.populateAssignDB(data['results']);
+      this.missions = data['results'].map(e => {
+        this.getScout(e.id);
+        return  e = {...e, scout :  this.scout.name };
+      });
 
-  getMissId(id):void{
-    this.data.getAssignByMission(id).subscribe(e => {
-      console.log(e)
-      this.scoutId = e.scout_id;
+      console.log(this.missions);
     });
   }
-   getScout(id):void {
-     //if(!id) return;
-     this.data.getScout(id).subscribe(data =>{
-     this.scout = data;
-     console.log('this is scout',this.scout)}
-   )}
+
+  getScout(id):void{
+    this.data.getAssignByMission(id).subscribe(e => this.scoutId = e.scout_id);
+    console.log('from get scout', this.scoutId)
+    if(this.scoutId) this.data.getScout(this.scoutId).subscribe(data => {
+      this.scout = data;
+    console.log('from namae', this.scout.name);
+    });
+  }
+
+   populateAssignDB(data):void {
+    data.map((e, i) => this.data.addAssignDB(i, 0, e.id));
+  }
 }
