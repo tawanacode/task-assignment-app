@@ -42,7 +42,7 @@ export class ScoutsComponent implements OnInit {
   addMissions(scoutObj:any, missionId:any){
     if(missionId) this.data.getMissions().subscribe(data =>{
       data['results'].filter(e => {
-         if(e.id === missionId) scoutObj.missions.push(e.title);
+         if(e.id === missionId) scoutObj.missions.push(e);
         });
     });
     
