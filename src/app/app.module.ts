@@ -10,7 +10,6 @@ import { MissionsComponent } from './missions/missions.component';
 import { NavComponent } from './nav/nav.component';
 import { ScoutsComponent } from './scouts/scouts.component';
 import { MissionComponent } from './mission/mission.component';
-import { ScoutComponent } from './scout/scout.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +18,7 @@ import { ScoutComponent } from './scout/scout.component';
     MissionsComponent,
     NavComponent,
     ScoutsComponent,
-    MissionComponent,
-    ScoutComponent
+    MissionComponent
   ],
   imports: [
     BrowserModule,
