@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 
-import { Mission } from '../mission';
-import { Scout } from '../scout';
+//import { Mission } from '../mission';
+//import { Scout } from '../scout';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +16,8 @@ export class DashboardComponent implements OnInit {
   missionsStatsTitle: string = 'Missions Stats';
   scoutsStatsTitle: string = 'Scouts Stats';
 
-  scouts: Scout[];
-  missions: Mission[];
+  scouts: any;
+  missions: any;
 
   constructor(private data: DataService) { }
 

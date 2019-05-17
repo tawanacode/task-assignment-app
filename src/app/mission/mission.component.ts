@@ -17,7 +17,7 @@ export class MissionComponent implements OnInit {
   assign: Assign;
   assignAll: Assign[];
   mission: Mission;
-  scouts: Scout[] = [];
+  scouts: any;
   scout_id: number = 0;
   scout: Scout = new Scout(this.scout_id, '-', 'info@scout.co.za', 0);
   submitted = false;

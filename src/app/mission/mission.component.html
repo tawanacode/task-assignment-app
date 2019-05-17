@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <ul>
                 <li>Date Created: {{ mission?.date }}</li>
-                <li>Mission Status:<i class="fas {{ mission.complete ? 'fa-check-square text-success' : 'fa-clock fa text-warning' }} fa-fw"></i> </li>
+                <li>Mission Status:<i class="fas {{ mission?.complete ? 'fa-check-square text-success' : 'fa-clock fa text-warning' }} fa-fw"></i> </li>
                 <li>Scout: {{ scout?.name ? scout?.name : selectedScout }}</li>
             </ul>
 
@@ -21,7 +21,7 @@
                 </select>
             </div>
 
-            <button class="btn btn-info mr-2 mb-sm-2 mb-md-0" (click)="save()">Assign Scout</button>
+            <button class="btn btn-info mr-2 mb-2 mb-sm-0" (click)="save()">Assign Scout</button>
             <button class="btn btn-outline-secondary" (click)="goBack()">back to missions</button>
         </div>
     </div>
