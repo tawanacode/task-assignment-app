@@ -24,28 +24,31 @@ export class ScoutsComponent implements OnInit {
     this.getScouts();
   }
 
-  getScouts():void {
+  getScouts(): void {
     this.data.getScouts().subscribe(data => {
-      this.scouts = data['results'].map((e:any, i:number) => {
-        let idx;
-        this.data.getAssignByScout(e.id).subscribe(e => idx = e ? e.mission_id : 0);
-    // this.data.getAssignDB().subscribe(data => {
-    //   idx = data.filter(e => e.scout_id === i);//.map(e => this.assign = e);
-    // });
-        return this.addMissions({...e, missions: [] }, idx);
-      });
+      this.scouts = data['results'].map((e: any, i: number) => {
+        let idx = [];
+        this.data.getAssignDB().subscribe(data => {
+           return data.filter(el => el.scout_id === e.id).map(ele => {
+            console.log(ele);
+              return idx.push(ele.mission_id);
+          });
+        })
 
-      
-    });
+
+        console.log('this is idx',idx)
+        return this.addMissions({ ...e, missions: [] }, idx);
+      })
+    })
   }
 
-  addMissions(scoutObj:any, missionId:any){
-    if(missionId) this.data.getMissions().subscribe(data =>{
+  addMissions(scoutObj: any, missionId: any) {
+    if (missionId.length) this.data.getMissions().subscribe(data => {
       data['results'].filter(e => {
-         if(e.id === missionId) scoutObj.missions.push(e);
-        });
+        for(let i of missionId) if (e.id === i) scoutObj.missions.push(e);
+      });
     });
-    
+
     console.log(scoutObj.missions)
     return scoutObj;
   }
