@@ -1,21 +1,28 @@
 <div class="container">
-    <h1>Mission: {{ mission?.title}}</h1>
-    {{ assign | json}}<br> {{ scout | json}}
-    <ul>
-        <li>ID: {{ mission?.id }}</li>
-        <li>Date Created: {{ mission?.date }}</li>
-        <li>Mission Status: {{ mission?.completed ? 'completed' : 'incompleted'}}</li>
-        <li>Scout: {{ scout?.name ? scout?.name : selectedScout }}</li>
-    </ul>
+    <h1 class="pb-3"><i class="fas fa-route fa-fw"></i> Mission: {{ mission?.title }}</h1>
+    <hr>
+    <p class="py-3"><i class="fas fa-check-square text-success fa-fw"></i> Mission Completed | <i
+            class="fas fa-clock text-warning fa-fw"></i> Mission in Progress</p>
 
-    <div class="form-group">
-        <label class="sr-only" for="select">Assign Scout</label>
-        <select class="form-control" [(ngModel)]="scout.name" name="select" (change)="onSelect($event)">
-            
-                <option *ngFor="let scout of scouts?.results" [ngValue]="scout.name" title="{{scout.id}}">{{scout?.name}}</option>
-            </select>
+    <div class="row">
+        <div class="col-md-6">
+            <ul>
+                <li>Date Created: {{ mission?.date }}</li>
+                <li>Mission Status:<i class="fas {{ mission.complete ? 'fa-check-square text-success' : 'fa-clock fa text-warning' }} fa-fw"></i> </li>
+                <li>Scout: {{ scout?.name ? scout?.name : selectedScout }}</li>
+            </ul>
+
+            <div class="form-group">
+                <label class="sr-ontly" for="select">Select Scout</label>
+                <select class="custom-select" [(ngModel)]="scout.name" name="select" (change)="onSelect($event)">
+
+                    <option *ngFor="let scout of scouts?.results" [ngValue]="scout.name" title="{{scout.id}}">
+                        {{scout?.name}}</option>
+                </select>
+            </div>
+
+            <button class="btn btn-info mr-2 mb-sm-2 mb-md-0" (click)="save()">Assign Scout</button>
+            <button class="btn btn-outline-secondary" (click)="goBack()">back to missions</button>
+        </div>
     </div>
-
-    <button class="btn btn-primary" (click)="goBack()">back</button>
-    <button class="btn btn-primary" (click)="save()">save</button>
 </div>

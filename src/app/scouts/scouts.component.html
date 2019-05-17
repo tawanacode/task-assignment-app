@@ -1,8 +1,9 @@
 <div class="container">
     <h1 class="pb-3"><i class="fas fa-users fa-fw"></i> {{ scoutsTitle }}</h1>
     <hr>
-    <p class="py-3"><i class="fas fa-check-square text-success fa-fw"></i> Mission Completed | <i class="fas fa-clock text-warning fa-fw"></i> Mission in Progress</p>
-<hr>
+    <p class="py-3"><i class="fas fa-check-square text-success fa-fw"></i> Mission Completed | <i
+            class="fas fa-clock text-warning fa-fw"></i> Mission in Progress</p>
+    <hr>
     <div class="row mt-5">
         <div class="col-sm-6 col-lg-4 mb-4" *ngFor="let scout of scouts">
             <div class="card">
@@ -18,18 +19,25 @@
                             </h5>
                         </div>
                     </div>
-                    
-                        <hr>
-                        <h6 class="font-weight-bold ">Missions</h6>
-                        <p class="text-secondary font-italic" *ngIf="!scout.missions.length">no missions yet</p>
-                <div *ngIf="scout.missions.length">
-                        <p class="card-text" *ngFor="let mission of scout.missions">
-                            <i class="fas {{ mission.complete ? 'fa-check-square text-success' : 'fa-clock text-warning'}}  fa-fw"></i>
-                            {{ mission.title }}
-                        </p>
-                    </div>
 
+                    <hr>
+
+                    <div class="card-header">
+                        <h6 class="font-weight-bold ">Assigned Missions</h6>
+                    </div>
+                    <ul class="list-group list-group-flush"  *ngIf="!scout.missions.length">
+                            <li class="list-group-item text-secondary font-italic">no missions yet</li>
+                          </ul>
+                        
+                    <ul class="list-group list-group-flush" *ngIf="scout.missions.length">
+                        <li class="list-group-item card-text" *ngFor="let mission of scout.missions">
+                            <i
+                                class="fas {{ mission.complete ? 'fa-check-square text-success' : 'fa-clock text-warning'}}  fa-fw"></i>
+                            {{ mission.title }}
+                        </li>
+                    </ul>
                 </div>
+
             </div>
         </div>
     </div>

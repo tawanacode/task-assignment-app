@@ -66,5 +66,6 @@ export class MissionComponent implements OnInit {
     console.log(this.mission.id, this.scout_id)
     this.data.updateAssignDB(this.scout_id, this.mission.id).subscribe();
     this.submitted;
+    this.location.back();
   }
 }

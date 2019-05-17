@@ -1,18 +1,28 @@
 <div class="container">
-    <h1>{{ dashboardTitle }}</h1>
-    <div class="row mt-5">
-        <div class="col-sm-6" *ngIf="missions">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">
-                        {{ missionsStatsTitle }}
-                    </h2>
-                    <p class="card-text">
-                        Total {{ missions.count }}
-                    </p>
-                    <a routerLink="/missions" class="btn btn-primary">view missions</a>
+    <h1 class="pb-3"><i class="fas fa-chart-line"></i> {{ dashboardTitle }}</h1>
+    <hr>
+    <div class="row mt-5 text-center">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card py-4 border-success" >
+                    <div class="card-body"> 
+                            <i class="fas fa-route fa-4x fa-fw"></i>
+                        <h2 class="card-title my-4">
+                         {{ missions.count }} Total Missions
+                        </h2>
+                        <a routerLink="/missions" class="btn btn-success btn-lg text-uppercase">go to missions</a>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col-sm-6">
+                <div class="card border-info py-4">
+                    <div class="card-body"> 
+                            <i class="fas fa-users fa-4x fa-fw"></i>
+                        <h2 class="card-title my-4">
+                         {{ scouts.count }} Scouts
+                        </h2>
+                        <a routerLink="/scouts" class="btn btn-info btn-lg text-uppercase">view scouts</a>
+                    </div>
+                </div>
+            </div>
     </div>
 </div>
