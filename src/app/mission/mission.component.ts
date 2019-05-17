@@ -48,14 +48,12 @@ export class MissionComponent implements OnInit {
   getScoutName(missionId:number, scoutId:number):void{
     if(scoutId) this.data.getAssignByMission(missionId).subscribe(data => {
       this.scout = data;
-      console.log(this.scout.name);
     });
   }
 
   onSelect(e): void {
     e.preventDefault;
     this.scout_id = +e.target.selectedOptions[0].title;
-    console.log('selected scout is', this.scout_id)
     this.data.getScout(this.scout_id).subscribe(data => this.scout = data);
    }
 

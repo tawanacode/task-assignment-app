@@ -29,14 +29,10 @@ export class ScoutsComponent implements OnInit {
       this.scouts = data['results'].map((e: any, i: number) => {
         let idx = [];
         this.data.getAssignDB().subscribe(data => {
-           return data.filter(el => el.scout_id === e.id).map(ele => {
-            console.log(ele);
-              return idx.push(ele.mission_id);
+          return data.filter(el => el.scout_id === e.id).map(ele => {
+            return idx.push(ele.mission_id);
           });
         })
-
-
-        console.log('this is idx',idx)
         return this.addMissions({ ...e, missions: [] }, idx);
       })
     })
@@ -45,11 +41,9 @@ export class ScoutsComponent implements OnInit {
   addMissions(scoutObj: any, missionId: any) {
     if (missionId.length) this.data.getMissions().subscribe(data => {
       data['results'].filter(e => {
-        for(let i of missionId) if (e.id === i) scoutObj.missions.push(e);
+        for (let i of missionId) if (e.id === i) scoutObj.missions.push(e);
       });
     });
-
-    console.log(scoutObj.missions)
     return scoutObj;
   }
 }
