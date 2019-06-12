@@ -1,8 +1,7 @@
-export class Mission {
+export class Task {
     constructor(
+        public user_id: number,
         public id: number,
-        public farm_id: number,
         public title: string,
-        public date: string,
         public complete: boolean){}
 }

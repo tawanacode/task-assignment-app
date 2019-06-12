@@ -1,0 +1,27 @@
+<div class="container">
+    <h1 class="pb-3"><i class="fas fa-route fa-fw"></i> Task: {{ task?.title }}</h1>
+    <hr>
+    <p class="py-3"><i class="fas fa-check-square text-success fa-fw"></i> Task Completed | <i
+            class="fas fa-clock text-warning fa-fw"></i> Task in Progress</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <ul>
+                <li>Task Status:<i class="fas {{ task?.complete ? 'fa-check-square text-success' : 'fa-clock fa text-warning' }} fa-fw"></i> </li>
+                <li>User: {{ user?.username ? user?.username : selectedUser }}</li>
+            </ul>
+
+            <div class="form-group">
+                <label class="sr-ontly" for="select">Select User</label>
+                <select class="custom-select" [(ngModel)]="user.name" name="select" (change)="onSelect($event)">
+
+                    <option *ngFor="let user of users" [ngValue]="user.name" title="{{user.id}}">
+                        {{user?.username}}</option>
+                </select>
+            </div>
+
+            <button class="btn btn-info mr-2 mb-2 mb-sm-0" (click)="save()">Assign User</button>
+            <button class="btn btn-outline-secondary" (click)="goBack()">back to Tasks</button>
+        </div>
+    </div>
+</div>

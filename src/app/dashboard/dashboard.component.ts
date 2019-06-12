@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 
-//import { Mission } from '../mission';
-//import { Scout } from '../scout';
+//import { Task } from '../Task';
+//import { User } from '../User';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,21 +13,21 @@ export class DashboardComponent implements OnInit {
 
   dashboardTitle: string = 'Dashboard';
 
-  missionsStatsTitle: string = 'Missions Stats';
-  scoutsStatsTitle: string = 'Scouts Stats';
+  tasksStatsTitle: string = 'Tasks Stats';
+  usersStatsTitle: string = 'Users Stats';
 
-  scouts: any;
-  missions: any;
+  users: any;
+  tasks: any;
 
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getScouts().subscribe(data =>
-      this.scouts = data
+    this.data.getUsers().subscribe(data =>
+      this.users = data
     )
 
-    this.data.getMissions().subscribe(data => {
-      this.missions = data
+    this.data.getTasks().subscribe(data => {
+      this.tasks = data
     })
     
   }

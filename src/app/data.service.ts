@@ -2,68 +2,69 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Mission } from './mission';
-import { Scout } from './scout';
+import { Task } from './tasks';
+import { User } from './user';
 import { Assign } from './assign';
 
-const api_key = {
-  headers: new HttpHeaders().set('Authorization',  '1536660107LWZ2JGK17J72HR4O5NU53FBBSLSMRB')
-};
+// const api_key = {
+//   headers: new HttpHeaders().set('Authorization',  '1536660107LWZ2JGK17J72HR4O5NU53FBBSLSMRB')
+// };
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private scoutsUrl = 'https://sherlock.aerobotics.io/developers/clients/';
-  private missionsUrl = 'https://sherlock.aerobotics.io/developers/scoutmissions/';
+  private usersUrl:string = 'https://jsonplaceholder.typicode.com/users';
+  private tasksUrl:string = 'http://jsonplaceholder.typicode.com/todos';
+  tasksLimit:string = '?_limit=12';
 
   assignDB: Assign[] = [];
 
   constructor(private http: HttpClient) { }
   
-  getScouts(): Observable<Scout[]>{
-    return this.http.get<Scout[]>(this.scoutsUrl, api_key)
+  getUsers(): Observable<User[]>{
+    return this.http.get<User[]>(this.usersUrl)
       .pipe(
-        catchError(this.handleError<Scout[]>('getScouts', []))
+        catchError(this.handleError<User[]>('getUsers', []))
       );
   }
   
-  getMissions(): Observable<Mission[]>{
-    return this.http.get<Mission[]>(this.missionsUrl, api_key)
+  getTasks(): Observable<Task[]>{
+    return this.http.get<Task[]>(`${this.tasksUrl}${this.tasksLimit}`)
       .pipe(
-        catchError(this.handleError<Mission[]>('getMissions', []))
+        catchError(this.handleError<Task[]>('getTasks', []))
       );
   }
 
-    getScout(id: number): Observable<Scout> {
-      const url = `${this.scoutsUrl}${id}/`;
-      return this.http.get<Scout>(url, api_key).pipe(
-        tap(_ => console.log(`fetched scout id=${id}`)),
-        catchError(this.handleError<Scout>(`getScout id=${id}`))
+    getUser(id: number): Observable<User> {
+      const url = `${this.usersUrl}/${id}`;
+      return this.http.get<User>(url).pipe(
+        tap(_ => console.log(`fetched user id=${id}`)),
+        catchError(this.handleError<User>(`getUser id=${id}`))
       );
     }
 
-    getMission(id: number): Observable<Mission> {
-      const url = `${this.missionsUrl}${id}/`;
-      return this.http.get<Mission>(url, api_key).pipe(
-        tap(_ => console.log(`fetched mission id=${id}`)),
-        catchError(this.handleError<Mission>(`getMission id=${id}`))
+    getTask(id: number): Observable<Task> {
+      const url = `${this.tasksUrl}/${id}`;
+      return this.http.get<Task>(url).pipe(
+        tap(_ => console.log(`fetched Task id=${id}`)),
+        catchError(this.handleError<Task>(`getTask id=${id}`))
       );
     }
 
-    getAssignByScout(id: number): Observable<Assign> {
-      return of(this.assignDB.find(data => data.scout_id === id));
+    getAssignByUser(id: number): Observable<Assign> {
+      return of(this.assignDB.find(data => data.user_id === id));
     }
 
-    getAssignByMission(id: number): Observable<Scout> {
-      const clientId = this.assignDB.find(data => data.mission_id === id).scout_id;
+    getAssignByTask(id: number): Observable<User> {
+      const clientId = this.assignDB.find(data => data.task_id === id).user_id;
       console.log(clientId);
       if(!clientId) return;
-      return this.getScout(clientId);
+      return this.getUser(clientId);
     }
 
-    addAssignDB(id:number, scout_id: number, mission_id: number){
-      const data = new Assign(id, scout_id, mission_id);
+    addAssignDB(id:number, user_id: number, task_id: number){
+      const data = new Assign(id, user_id, task_id);
       return (of(this.assignDB.push(data)));
     }
 
@@ -71,9 +72,9 @@ export class DataService {
       return (of(this.assignDB));
     }
 
-    updateAssignDB(scout_id: number, mission_id: number){
+    updateAssignDB(user_id: number, task_id: number){
       return of(this.assignDB.filter(e => {
-        if(e.mission_id === mission_id) e.scout_id = scout_id}));
+        if(e.task_id === task_id) e.user_id = user_id}));
     }
 
     /**

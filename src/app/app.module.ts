@@ -6,19 +6,19 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MissionsComponent } from './missions/missions.component';
+import { TasksComponent } from './tasks/tasks.component';
 import { NavComponent } from './nav/nav.component';
-import { ScoutsComponent } from './scouts/scouts.component';
-import { MissionComponent } from './mission/mission.component';
+import { UsersComponent } from './users/users.component';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    MissionsComponent,
+    TasksComponent,
     NavComponent,
-    ScoutsComponent,
-    MissionComponent
+    UsersComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

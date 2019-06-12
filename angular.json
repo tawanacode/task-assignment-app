@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "mission-test": {
+        "Task-test": {
             "root": "",
             "sourceRoot": "src",
             "projectType": "application",
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/mission-test",
+                        "outputPath": "dist/Task-test",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -59,18 +59,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "mission-test:build"
+                        "browserTarget": "Task-test:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "mission-test:build:production"
+                            "browserTarget": "Task-test:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "mission-test:build"
+                        "browserTarget": "Task-test:build"
                     }
                 },
                 "test": {
@@ -104,7 +104,7 @@
                 }
             }
         },
-        "mission-test-e2e": {
+        "Task-test-e2e": {
             "root": "e2e/",
             "projectType": "application",
             "prefix": "",
@@ -113,11 +113,11 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "mission-test:serve"
+                        "devServerTarget": "Task-test:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "mission-test:serve:production"
+                            "devServerTarget": "Task-test:serve:production"
                         }
                     }
                 },
@@ -133,5 +133,5 @@
             }
         }
     },
-    "defaultProject": "mission-test"
+    "defaultProject": "Task-test"
 }

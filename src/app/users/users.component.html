@@ -1,0 +1,44 @@
+<div class="container">
+    <h1 class="pb-3"><i class="fas fa-users fa-fw"></i> {{ usersTitle }}</h1>
+    <hr>
+    <p class="py-3"><i class="fas fa-check-square text-success fa-fw"></i> Task Completed | <i
+            class="fas fa-clock text-warning fa-fw"></i> Task in Progress</p>
+    <hr>
+    <div class="row mt-5">
+        <div class="col-sm-6 col-lg-4 mb-4" *ngFor="let user of users">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row no-gutters">
+                        <div class="col-4 mb-sm-3 mb-md-0">
+                            <i class="fas fa-user-circle fa-3x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h5 class="card-title mb-0">
+                                {{ user.username }} <br>
+                                <small class="font-weight-lighter text-black-50">ID: <em>{{ user.id }}</em></small>
+                            </h5>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="card-header">
+                        <h6 class="font-weight-bold ">Assigned Tasks</h6>
+                    </div>
+                    <ul class="list-group list-group-flush"  *ngIf="!user.tasks.length">
+                            <li class="list-group-item text-secondary font-italic">no Tasks yet</li>
+                          </ul>
+                        
+                    <ul class="list-group list-group-flush" *ngIf="user.tasks.length">
+                        <li class="list-group-item card-text" *ngFor="let task of user.tasks">
+                            <i
+                                class="fas {{ task.complete ? 'fa-check-square text-success' : 'fa-clock text-warning'}}  fa-fw"></i>
+                            {{ task.title }}
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

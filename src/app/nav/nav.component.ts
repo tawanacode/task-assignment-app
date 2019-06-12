@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-  title: string =  'scouts mission app';
+  title: string =  'Users Task app';
   constructor() { }
 
   ngOnInit() {
