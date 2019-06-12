@@ -9,8 +9,8 @@ import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-Task',
-  templateUrl: './Task.component.html',
-  styleUrls: ['./Task.component.scss']
+  templateUrl: './task.component.html',
+  styleUrls: ['./task.component.scss']
 })
 
 export class TaskComponent implements OnInit {
