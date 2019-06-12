@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "Task-test": {
+        "task-assignment-app": {
             "root": "",
             "sourceRoot": "src",
             "projectType": "application",
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/Task-test",
+                        "outputPath": "dist/task-assignment-app",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -59,18 +59,18 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "Task-test:build"
+                        "browserTarget": "task-assignment-app:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "Task-test:build:production"
+                            "browserTarget": "task-assignment-app:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "Task-test:build"
+                        "browserTarget": "task-assignment-app:build"
                     }
                 },
                 "test": {
@@ -104,7 +104,7 @@
                 }
             }
         },
-        "Task-test-e2e": {
+        "task-assignment-app-e2e": {
             "root": "e2e/",
             "projectType": "application",
             "prefix": "",
@@ -113,11 +113,11 @@
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
                         "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "Task-test:serve"
+                        "devServerTarget": "task-assignment-app:serve"
                     },
                     "configurations": {
                         "production": {
-                            "devServerTarget": "Task-test:serve:production"
+                            "devServerTarget": "task-assignment-app:serve:production"
                         }
                     }
                 },
@@ -133,5 +133,5 @@
             }
         }
     },
-    "defaultProject": "Task-test"
+    "defaultProject": "task-assignment-app"
 }
