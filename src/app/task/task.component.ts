@@ -19,7 +19,7 @@ export class TaskComponent implements OnInit {
   task: Task;
   users: any;
   user_id: number = 0;
-  user: User = new User(this.user_id, '-', '-', 'info@User.co.za');
+  user: User = new User(this.user_id, '-', '-', 'info@user.co.za');
   submitted = false;
   selectedUser: string = 'none';
 
