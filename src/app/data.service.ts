@@ -15,7 +15,7 @@ import { Assign } from './assign';
 })
 export class DataService {
   private usersUrl:string = 'https://jsonplaceholder.typicode.com/users';
-  private tasksUrl:string = 'http://jsonplaceholder.typicode.com/todos';
+  private tasksUrl:string = 'https://jsonplaceholder.typicode.com/todos';
   tasksLimit:string = '?_limit=12';
 
   assignDB: Assign[] = [];
